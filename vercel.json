@@ -1,12 +1,1 @@
-{
-  "crons": [
-    {
-      "path": "/api/cron/auto-lock",
-      "schedule": "* * * * *"
-    },
-    {
-      "path": "/api/cron/auto-settle",
-      "schedule": "*/15 * * * *"
-    }
-  ]
-}
+{}

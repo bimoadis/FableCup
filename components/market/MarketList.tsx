@@ -33,17 +33,20 @@ export default function MarketList({ initialMatches }: { initialMatches: MatchMa
     // 2. Stage Filter
     if (stageFilter !== "all") {
       const stageLower = m.stage.toLowerCase();
-      if (stageFilter === "group" && !stageLower.includes("group stage")) {
+      if (stageFilter === "group" && !stageLower.includes("group")) {
         return false;
       }
-      if (stageFilter === "quarterfinals" && !stageLower.includes("quarterfinals")) {
-        return false;
+      if (stageFilter === "quarterfinals") {
+        const isQuarter = stageLower.includes("quarter") || stageLower.includes("8 besar") || stageLower === "qf";
+        if (!isQuarter) return false;
       }
-      if (stageFilter === "semifinals" && !stageLower.includes("semifinals")) {
-        return false;
+      if (stageFilter === "semifinals") {
+        const isSemi = stageLower.includes("semi") || stageLower === "sf";
+        if (!isSemi) return false;
       }
-      if (stageFilter === "final" && !stageLower.includes("final")) {
-        return false;
+      if (stageFilter === "final") {
+        const isFinal = stageLower.includes("final") && !stageLower.includes("semi") && !stageLower.includes("quarter");
+        if (!isFinal) return false;
       }
     }
 
