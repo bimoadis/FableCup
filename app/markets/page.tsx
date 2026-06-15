@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getLiveMatchMarkets } from "@/lib/markets";
+import { supabase } from "@/lib/supabase";
 import MarketList from "@/components/market/MarketList";
 
 export const dynamic = "force-dynamic";
@@ -39,7 +40,7 @@ export default async function MarketsPage() {
             gap: 8,
           }}
         >
-          <span>Fixtures and probabilities shown are sample data</span>
+          <span>{supabase ? "Fixtures and probabilities are live" : "Fixtures and probabilities shown are sample data"}</span>
           <span>More markets open after each match day</span>
         </p>
       </div>

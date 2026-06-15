@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { MatchMarket } from "@/lib/markets";
+import { supabase } from "@/lib/supabase";
 
 export default function Outcomes({ market }: { market: MatchMarket }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -35,7 +36,7 @@ export default function Outcomes({ market }: { market: MatchMarket }) {
     <div className="outcomes" ref={ref} aria-label="Current market probabilities">
       <div className="board-head">
         <span>Implied probability &middot; full time</span>
-        <span className="mono">Sample data</span>
+        <span className="mono">{supabase ? "Live" : "Sample data"}</span>
       </div>
       {rows.map((r) => (
         <div className={`outcome-row${r.p === max ? " lead" : ""}`} key={r.name}>
