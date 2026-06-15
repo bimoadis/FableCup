@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { matchMarkets, getMarket } from "@/lib/markets";
+import { getLiveMatchMarkets, getLiveMarket } from "@/lib/markets";
 import Outcomes from "@/components/market/Outcomes";
 import PredictionPanel from "@/components/market/PredictionPanel";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return matchMarkets.map((m) => ({ slug: m.slug }));
+export async function generateStaticParams() {
+  const markets = await getLiveMatchMarkets();
+  return markets.map((m) => ({ slug: m.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const m = getMarket(slug);
+  const m = await getLiveMarket(slug);
   if (!m) return { title: "Market · Anthropic Cup" };
   return {
     title: `${m.home} v ${m.away} · Anthropic Cup`,
@@ -23,7 +24,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function MarketDetail({ params }: Props) {
   const { slug } = await params;
-  const market = getMarket(slug);
+  const market = await getLiveMarket(slug);
+
   if (!market) notFound();
 
   return (

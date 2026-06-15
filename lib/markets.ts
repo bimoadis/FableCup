@@ -138,6 +138,89 @@ export const outright: OutrightRow[] = [
   },
 ];
 
+import { supabase } from "./supabase";
+
+export async function getLiveMatchMarkets(): Promise<MatchMarket[]> {
+  if (!supabase) {
+    return matchMarkets;
+  }
+
+  const { data: matches, error: matchesError } = await supabase
+    .from("matches")
+    .select("*")
+    .order("kickoff", { ascending: true });
+
+  if (matchesError || !matches) {
+    console.error("Error fetching matches:", matchesError?.message);
+    return matchMarkets;
+  }
+
+  const { data: predStats, error: predError } = await supabase
+    .from("predictions")
+    .select("match_slug, home_score, away_score");
+
+  const statsMap: Record<
+    string,
+    { homeWins: number; draws: number; awayWins: number; total: number }
+  > = {};
+
+  if (!predError && predStats) {
+    predStats.forEach((p) => {
+      if (!statsMap[p.match_slug]) {
+        statsMap[p.match_slug] = { homeWins: 0, draws: 0, awayWins: 0, total: 0 };
+      }
+      const stats = statsMap[p.match_slug];
+      stats.total++;
+      if (p.home_score > p.away_score) {
+        stats.homeWins++;
+      } else if (p.home_score < p.away_score) {
+        stats.awayWins++;
+      } else {
+        stats.draws++;
+      }
+    });
+  }
+
+  return matches.map((m) => {
+    const stats = statsMap[m.slug];
+    let probs = { home: 40, draw: 30, away: 30 };
+
+    if (stats && stats.total > 0) {
+      const home = Math.round((stats.homeWins / stats.total) * 100);
+      const away = Math.round((stats.awayWins / stats.total) * 100);
+      const draw = 100 - home - away;
+      probs = { home, draw, away };
+    }
+
+    const d = new Date(m.kickoff);
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "short",
+      day: "2-digit",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    };
+    const formattedDate = d.toLocaleString("en-US", options);
+
+    return {
+      slug: m.slug,
+      home: m.home,
+      away: m.away,
+      stage: m.stage,
+      kickoff: formattedDate,
+      venue: m.venue,
+      status: m.status as "open" | "locked" | "settled",
+      probs,
+    };
+  });
+}
+
+export async function getLiveMarket(slug: string): Promise<MatchMarket | null> {
+  const markets = await getLiveMatchMarkets();
+  return markets.find((m) => m.slug === slug) || null;
+}
+
 export function getMarket(slug: string) {
   return matchMarkets.find((m) => m.slug === slug);
 }

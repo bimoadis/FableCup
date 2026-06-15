@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { matchMarkets } from "@/lib/markets";
+import { getLiveMatchMarkets } from "@/lib/markets";
 
 export const metadata: Metadata = {
   title: "Markets · Anthropic Cup",
@@ -8,7 +8,9 @@ export const metadata: Metadata = {
     "Open prediction markets for World Cup 2026 fixtures. Submit your forecast and watch collective probability evolve.",
 };
 
-export default function MarketsPage() {
+export default async function MarketsPage() {
+  const matches = await getLiveMatchMarkets();
+
   return (
     <main>
       <div className="page-head wrap">
@@ -23,7 +25,8 @@ export default function MarketsPage() {
 
       <div className="wrap" style={{ paddingBottom: "clamp(80px,11vw,150px)" }}>
         <div className="mlist-grid">
-          {matchMarkets.map((m) => (
+          {matches.map((m) => (
+
             <Link href={`/markets/${m.slug}`} className="mcard" key={m.slug}>
               <span className="stage">
                 <span>{m.stage}</span>
