@@ -8,7 +8,6 @@ export default function MarketList({ initialMatches }: { initialMatches: MatchMa
   // Default filter is set to "today" as requested
   const [filter, setFilter] = useState<"today" | "week" | "all">("today");
   const [groupFilter, setGroupFilter] = useState<string>("all");
-  const [stageFilter, setStageFilter] = useState<"all" | "group" | "quarterfinals" | "semifinals" | "final">("all");
 
   const today = new Date();
   const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
@@ -28,26 +27,6 @@ export default function MarketList({ initialMatches }: { initialMatches: MatchMa
 
     if (!isDetermined(m.home) || !isDetermined(m.away)) {
       return false;
-    }
-
-    // 2. Stage Filter
-    if (stageFilter !== "all") {
-      const stageLower = m.stage.toLowerCase();
-      if (stageFilter === "group" && !stageLower.includes("group")) {
-        return false;
-      }
-      if (stageFilter === "quarterfinals") {
-        const isQuarter = stageLower.includes("quarter") || stageLower.includes("8 besar") || stageLower === "qf";
-        if (!isQuarter) return false;
-      }
-      if (stageFilter === "semifinals") {
-        const isSemi = stageLower.includes("semi") || stageLower === "sf";
-        if (!isSemi) return false;
-      }
-      if (stageFilter === "final") {
-        const isFinal = stageLower.includes("final") && !stageLower.includes("semi") && !stageLower.includes("quarter");
-        if (!isFinal) return false;
-      }
     }
 
     // 3. Group Filter
@@ -155,104 +134,7 @@ export default function MarketList({ initialMatches }: { initialMatches: MatchMa
         </button>
       </div>
 
-      {/* Stage Filter Pills */}
-      <div className="stage-pills" style={{
-        display: "flex",
-        gap: "8px",
-        flexWrap: "wrap",
-        marginBottom: "20px"
-      }}>
-        <button
-          onClick={() => setStageFilter("all")}
-          style={{
-            background: stageFilter === "all" ? "var(--ink)" : "transparent",
-            color: stageFilter === "all" ? "var(--paper)" : "var(--ink-soft)",
-            border: `1px solid ${stageFilter === "all" ? "var(--ink)" : "var(--rule-dark)"}`,
-            borderRadius: "2px",
-            fontFamily: "var(--mono)",
-            fontSize: "11px",
-            letterSpacing: "0.05em",
-            textTransform: "uppercase",
-            padding: "5px 12px",
-            cursor: "pointer",
-            transition: "all 0.15s ease"
-          }}
-        >
-          All Stages
-        </button>
-        <button
-          onClick={() => setStageFilter("group")}
-          style={{
-            background: stageFilter === "group" ? "var(--ink)" : "transparent",
-            color: stageFilter === "group" ? "var(--paper)" : "var(--ink-soft)",
-            border: `1px solid ${stageFilter === "group" ? "var(--ink)" : "var(--rule-dark)"}`,
-            borderRadius: "2px",
-            fontFamily: "var(--mono)",
-            fontSize: "11px",
-            letterSpacing: "0.05em",
-            textTransform: "uppercase",
-            padding: "5px 12px",
-            cursor: "pointer",
-            transition: "all 0.15s ease"
-          }}
-        >
-          Group Stage
-        </button>
-        <button
-          onClick={() => setStageFilter("quarterfinals")}
-          style={{
-            background: stageFilter === "quarterfinals" ? "var(--ink)" : "transparent",
-            color: stageFilter === "quarterfinals" ? "var(--paper)" : "var(--ink-soft)",
-            border: `1px solid ${stageFilter === "quarterfinals" ? "var(--ink)" : "var(--rule-dark)"}`,
-            borderRadius: "2px",
-            fontFamily: "var(--mono)",
-            fontSize: "11px",
-            letterSpacing: "0.05em",
-            textTransform: "uppercase",
-            padding: "5px 12px",
-            cursor: "pointer",
-            transition: "all 0.15s ease"
-          }}
-        >
-          Quarterfinals (8 Besar)
-        </button>
-        <button
-          onClick={() => setStageFilter("semifinals")}
-          style={{
-            background: stageFilter === "semifinals" ? "var(--ink)" : "transparent",
-            color: stageFilter === "semifinals" ? "var(--paper)" : "var(--ink-soft)",
-            border: `1px solid ${stageFilter === "semifinals" ? "var(--ink)" : "var(--rule-dark)"}`,
-            borderRadius: "2px",
-            fontFamily: "var(--mono)",
-            fontSize: "11px",
-            letterSpacing: "0.05em",
-            textTransform: "uppercase",
-            padding: "5px 12px",
-            cursor: "pointer",
-            transition: "all 0.15s ease"
-          }}
-        >
-          Semifinals
-        </button>
-        <button
-          onClick={() => setStageFilter("final")}
-          style={{
-            background: stageFilter === "final" ? "var(--ink)" : "transparent",
-            color: stageFilter === "final" ? "var(--paper)" : "var(--ink-soft)",
-            border: `1px solid ${stageFilter === "final" ? "var(--ink)" : "var(--rule-dark)"}`,
-            borderRadius: "2px",
-            fontFamily: "var(--mono)",
-            fontSize: "11px",
-            letterSpacing: "0.05em",
-            textTransform: "uppercase",
-            padding: "5px 12px",
-            cursor: "pointer",
-            transition: "all 0.15s ease"
-          }}
-        >
-          Final
-        </button>
-      </div>
+
 
       {/* Secondary Group Filter Pills */}
       <div className="group-pills" style={{
