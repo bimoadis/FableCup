@@ -18,11 +18,6 @@ export type SubmitResult =
   | { ok: true; demo: boolean }
   | { ok: false; error: string };
 
-/**
- * Insert a prediction. One prediction per wallet per match is enforced
- * by a unique constraint in the database (see DEVELOPER-BRIEF.md).
- * Without Supabase credentials this is a no-op demo that always succeeds.
- */
 export async function submitPrediction(
   p: PredictionInput
 ): Promise<SubmitResult> {
@@ -30,15 +25,38 @@ export async function submitPrediction(
     await new Promise((r) => setTimeout(r, 600)); // simulate latency
     return { ok: true, demo: true };
   }
-  const { error } = await supabase.from("predictions").insert(p);
-  if (error) {
-    if (error.code === "23505") {
-      return {
-        ok: false,
-        error: "This wallet has already submitted a forecast for this match.",
-      };
-    }
-    return { ok: false, error: error.message };
+
+  // Request signature from Phantom wallet
+  const { signPhantomMessage } = await import("./wallet");
+  const messageStr = `Anthropic Cup Prediction: ${p.match_slug} - ${p.home_score}:${p.away_score}`;
+  const signRes = await signPhantomMessage(messageStr);
+  if (!signRes.ok) {
+    return { ok: false, error: signRes.error };
   }
-  return { ok: true, demo: false };
+
+  try {
+    const response = await fetch("/api/predictions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...p,
+        signature: signRes.signature,
+      }),
+    });
+
+    const data = await response.json();
+    if (!response.ok || !data.ok) {
+      return { ok: false, error: data.error || "Failed to submit prediction" };
+    }
+
+    return { ok: true, demo: data.demo };
+  } catch (err) {
+    return {
+      ok: false,
+      error: err instanceof Error ? err.message : String(err),
+    };
+  }
 }
+
