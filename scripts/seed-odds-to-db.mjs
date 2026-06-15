@@ -118,8 +118,22 @@ async function main() {
         updatedCount++;
       }
     } else {
-      console.log(`[SKIPPED] No matching odds found in odds.json for: "${dbMatch.home} vs ${dbMatch.away}"`);
-      skippedCount++;
+      console.log(`[DEFAULT ODDS] Setting defaults for "${dbMatch.home} vs ${dbMatch.away}" -> Home: 34%, Draw: 29%, Away: 27%`);
+      
+      const { error: updateError } = await supabase
+        .from("matches")
+        .update({
+          away_win: 27,
+          draw: 29,
+          home_win: 34
+        })
+        .eq("slug", dbMatch.slug);
+
+      if (updateError) {
+        console.error(`Failed to update default odds for ${dbMatch.slug}:`, updateError.message);
+      } else {
+        updatedCount++;
+      }
     }
   }
 

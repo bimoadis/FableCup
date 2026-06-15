@@ -36,13 +36,13 @@ async function main() {
       
       // Default odds if not present in the live odds endpoint
       const odds = liveOdds ? {
-        home_win: parseInt(liveOdds.home_win || "40"),
-        draw: parseInt(liveOdds.draw || "30"),
-        away_win: parseInt(liveOdds.away_win || "30")
+        home_win: parseInt(liveOdds.home_win || "34"),
+        draw: parseInt(liveOdds.draw || "29"),
+        away_win: parseInt(liveOdds.away_win || "27")
       } : {
-        home_win: 40,
-        draw: 30,
-        away_win: 30
+        home_win: 34,
+        draw: 29,
+        away_win: 27
       };
 
       return {
