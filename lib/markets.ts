@@ -254,7 +254,13 @@ export async function getLiveMatchMarkets(): Promise<MatchMarket[]> {
 
   return matches.map((m) => {
     const stats = statsMap[m.slug];
-    let probs = { home: 40, draw: 30, away: 30 };
+    
+    // Use the Polymarket/Ultras odds from database if available, otherwise fallback to default 40/30/30
+    let probs = {
+      home: (m.home_win !== null && m.home_win !== undefined) ? m.home_win : 40,
+      draw: (m.draw !== null && m.draw !== undefined) ? m.draw : 30,
+      away: (m.away_win !== null && m.away_win !== undefined) ? m.away_win : 30
+    };
 
     if (stats && stats.total > 0) {
       const home = Math.round((stats.homeWins / stats.total) * 100);
