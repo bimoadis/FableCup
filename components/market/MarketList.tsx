@@ -64,7 +64,7 @@ export default function MarketList({ initialMatches }: { initialMatches: MatchMa
             transition: "all 0.15s ease"
           }}
         >
-          Hari Ini
+          Today
         </button>
         <button
           onClick={() => setFilter("week")}
@@ -84,7 +84,7 @@ export default function MarketList({ initialMatches }: { initialMatches: MatchMa
             transition: "all 0.15s ease"
           }}
         >
-          Minggu Ini
+          This Week
         </button>
         <button
           onClick={() => setFilter("all")}
@@ -104,7 +104,7 @@ export default function MarketList({ initialMatches }: { initialMatches: MatchMa
             transition: "all 0.15s ease"
           }}
         >
-          Semua
+          All
         </button>
       </div>
 
@@ -115,8 +115,9 @@ export default function MarketList({ initialMatches }: { initialMatches: MatchMa
           fontFamily: "var(--sans)",
           color: "var(--ink-soft)"
         }}>
-          Tidak ada pertandingan yang dijadwalkan untuk periode ini.
+          No matches scheduled for this period.
         </div>
+
       ) : (
         <div className="mlist-grid">
           {filteredMatches.map((m) => (
