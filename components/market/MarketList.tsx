@@ -12,6 +12,19 @@ export default function MarketList({ initialMatches }: { initialMatches: MatchMa
   const oneDay = 24 * 60 * 60 * 1000;
 
   const filteredMatches = initialMatches.filter((m) => {
+    // Do not show matches if the participating countries are not yet determined
+    const isDetermined = (name: string) => {
+      const lower = name.toLowerCase();
+      return !lower.includes("winner") &&
+             !lower.includes("runner") &&
+             !lower.includes("loser") &&
+             !lower.includes("tbd");
+    };
+
+    if (!isDetermined(m.home) || !isDetermined(m.away)) {
+      return false;
+    }
+
     if (filter === "all") return true;
 
     if (!m.rawKickoff) return false;
