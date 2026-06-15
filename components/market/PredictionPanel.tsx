@@ -5,7 +5,7 @@ import type { MatchMarket } from "@/lib/markets";
 import { connectPhantom, shortAddress } from "@/lib/wallet";
 import { submitPrediction, supabase } from "@/lib/supabase";
 
-const MIN_FABLE = process.env.NEXT_PUBLIC_MIN_FABLE || "1,000";
+const MIN_ANTHROPIC = process.env.NEXT_PUBLIC_MIN_ANTHROPIC || "1,000";
 
 type Status =
   | { kind: "idle" }
@@ -71,7 +71,7 @@ export default function PredictionPanel({ market }: { market: MatchMarket }) {
       <h3>Call the score.</h3>
       <p className="hint">
         One forecast per wallet. Locks at kickoff, settles against the
-        official full-time result. Holding {MIN_FABLE} $FABLE is required to
+        official full-time result. Holding {MIN_ANTHROPIC} $ANTHROPIC is required to
         participate.
       </p>
 
@@ -128,7 +128,7 @@ export default function PredictionPanel({ market }: { market: MatchMarket }) {
       {status.kind === "err" && <p className="status-msg err">{status.msg}</p>}
 
       <p className="fine">
-        Forecasting on Fable Cup is a test of judgment, not a wager. There is
+        Forecasting on Anthropic Cup is a test of judgment, not a wager. There is
         no fee to submit and nothing is staked; rewards come from the
         community pool and are earned by accuracy alone.
       </p>

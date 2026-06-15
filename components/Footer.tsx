@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="wrap">
         <div className="foot-grid">
           <span className="wordmark" style={{ fontSize: 16 }}>
-            Fable <em>Cup</em>
+            Anthropic <em>Cup</em>
           </span>
           <div className="foot-links">
             <Link href="/#idea">Thesis</Link>
@@ -14,12 +14,12 @@ export default function Footer() {
             <Link href="/#tokenomics">Allocation</Link>
             <Link href="/#roadmap">Roadmap</Link>
           </div>
-          <span className="mono">&copy; 2026 Fable Cup</span>
+          <span className="mono">&copy; 2026 Anthropic Cup</span>
         </div>
         <p className="disclaimer">
-          Fable Cup is a skill-based forecasting platform. Probabilities shown
-          on this site are illustrative until live markets open. Fable Cup is
-          not affiliated with FIFA. $FABLE is a utility token used for platform
+          Anthropic Cup is a skill-based forecasting platform. Probabilities shown
+          on this site are illustrative until live markets open. Anthropic Cup is
+          not affiliated with FIFA. $ANTHROPIC is a utility token used for platform
           access, governance, and rewards; nothing on this site is financial
           advice or an offer of securities.
         </p>

@@ -36,7 +36,7 @@ export default function Tokenomics() {
     <div className="reveal">
       <div className="supply-line">
         <span className="num">1,000,000,000</span>
-        <span className="lab">Total supply &middot; fixed &middot; $FABLE</span>
+        <span className="lab">Total supply &middot; fixed &middot; $ANTHROPIC</span>
       </div>
 
       <div

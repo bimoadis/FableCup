@@ -21,11 +21,11 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fable Cup · The Market Behind the Narrative",
+  title: "Anthropic Cup · The Market Behind the Narrative",
   description:
-    "Fable Cup turns a billion World Cup opinions into one live market of probabilities. The prediction platform for World Cup 2026.",
+    "Anthropic Cup turns a billion World Cup opinions into one live market of probabilities. The prediction platform for World Cup 2026.",
   openGraph: {
-    title: "Fable Cup · The Market Behind the Narrative",
+    title: "Anthropic Cup · The Market Behind the Narrative",
     description:
       "A billion opinions. One market. The prediction platform for World Cup 2026.",
     type: "website",

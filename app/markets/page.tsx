@@ -3,7 +3,7 @@ import Link from "next/link";
 import { matchMarkets } from "@/lib/markets";
 
 export const metadata: Metadata = {
-  title: "Markets · Fable Cup",
+  title: "Markets · Anthropic Cup",
   description:
     "Open prediction markets for World Cup 2026 fixtures. Submit your forecast and watch collective probability evolve.",
 };

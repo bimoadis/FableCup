@@ -31,13 +31,13 @@ export default function Home() {
                   expert.
                 </p>
                 <p>
-                  Fable Cup applies this to the largest shared narrative on
+                  Anthropic Cup applies this to the largest shared narrative on
                   Earth. <b>104 matches. 48 nations. Billions of opinions</b>{" "}
                   about who rises, who collapses, and who writes history in
                   June and July of 2026.
                 </p>
                 <p>
-                  Every prediction submitted on Fable Cup moves a probability.
+                  Every prediction submitted on Anthropic Cup moves a probability.
                   Every probability is public, live, and continuous. The
                   result is a single document of collective belief, updating
                   in real time, from the opening whistle to the final.
@@ -61,7 +61,7 @@ export default function Home() {
               <h2>Who lifts the trophy?</h2>
               <p className="lede">
                 Outright winner, World Cup 2026. Probabilities are implied by
-                open predictions on Fable Cup and move as conviction moves.
+                open predictions on Anthropic Cup and move as conviction moves.
               </p>
             </div>
             <MarketBoard />
@@ -148,13 +148,13 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ============ $FABLE ============ */}
+        {/* ============ $ANTHROPIC ============ */}
         <section id="token">
           <div className="wrap">
             <div className="token-grid">
               <div className="reveal">
                 <span className="eyebrow" style={{ marginBottom: 20 }}>
-                  05 &middot; $FABLE
+                  05 &middot; $ANTHROPIC
                 </span>
                 <h2 style={{ marginBottom: 22 }}>
                   One token.
@@ -162,7 +162,7 @@ export default function Home() {
                   Pure utility.
                 </h2>
                 <p className="lede">
-                  $FABLE is the access and coordination layer of the platform.
+                  $ANTHROPIC is the access and coordination layer of the platform.
                   It exists to make participation, governance, and rewards
                   work, nothing else.
                 </p>
@@ -172,7 +172,7 @@ export default function Home() {
                   <span className="k">Access</span>
                   <span className="v">
                     <b>Prediction participation</b>
-                    Holding $FABLE is what lets you enter markets and submit
+                    Holding $ANTHROPIC is what lets you enter markets and submit
                     forecasts across the tournament.
                   </span>
                 </div>
@@ -308,7 +308,7 @@ export default function Home() {
               The next World Cup story <em>hasn&rsquo;t happened yet.</em>
             </p>
             <p className="mark reveal">
-              Fable <em>Cup</em>
+              Anthropic <em>Cup</em>
             </p>
             <p className="help reveal">Help write it.</p>
             <div className="cta-row reveal">
