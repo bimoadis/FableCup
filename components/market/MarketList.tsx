@@ -5,14 +5,18 @@ import Link from "next/link";
 import type { MatchMarket } from "@/lib/markets";
 
 export default function MarketList({ initialMatches }: { initialMatches: MatchMarket[] }) {
-  const [filter, setFilter] = useState<"today" | "week" | "all">("all");
+  // Default filter is set to "today" as requested
+  const [filter, setFilter] = useState<"today" | "week" | "all">("today");
+  const [groupFilter, setGroupFilter] = useState<string>("all");
 
   const today = new Date();
   const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
   const oneDay = 24 * 60 * 60 * 1000;
 
+  const groups = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
+
   const filteredMatches = initialMatches.filter((m) => {
-    // Do not show matches if the participating countries are not yet determined
+    // 1. Exclude undetermined knockout slots
     const isDetermined = (name: string) => {
       const lower = name.toLowerCase();
       return !lower.includes("winner") &&
@@ -25,6 +29,15 @@ export default function MarketList({ initialMatches }: { initialMatches: MatchMa
       return false;
     }
 
+    // 2. Group Filter
+    if (groupFilter !== "all") {
+      const matchStageLower = m.stage.toLowerCase();
+      if (!matchStageLower.includes(`group ${groupFilter.toLowerCase()}`)) {
+        return false;
+      }
+    }
+
+    // 3. Time Filter
     if (filter === "all") return true;
 
     if (!m.rawKickoff) return false;
@@ -51,11 +64,11 @@ export default function MarketList({ initialMatches }: { initialMatches: MatchMa
 
   return (
     <div>
-      {/* Premium Minimalist Filter Tabs */}
+      {/* Primary Time Filter Tabs */}
       <div className="filter-tabs" style={{
         display: "flex",
         gap: "24px",
-        marginBottom: "36px",
+        marginBottom: "20px",
         borderBottom: "1px solid var(--rule)",
         paddingBottom: "8px"
       }}>
@@ -121,16 +134,65 @@ export default function MarketList({ initialMatches }: { initialMatches: MatchMa
         </button>
       </div>
 
+      {/* Secondary Group Filter Pills */}
+      <div className="group-pills" style={{
+        display: "flex",
+        gap: "8px",
+        flexWrap: "wrap",
+        marginBottom: "36px"
+      }}>
+        <button
+          onClick={() => setGroupFilter("all")}
+          style={{
+            background: groupFilter === "all" ? "var(--ink)" : "transparent",
+            color: groupFilter === "all" ? "var(--paper)" : "var(--ink-soft)",
+            border: `1px solid ${groupFilter === "all" ? "var(--ink)" : "var(--rule-dark)"}`,
+            borderRadius: "2px",
+            fontFamily: "var(--mono)",
+            fontSize: "11px",
+            letterSpacing: "0.05em",
+            textTransform: "uppercase",
+            padding: "5px 12px",
+            cursor: "pointer",
+            transition: "all 0.15s ease"
+          }}
+        >
+          All Groups
+        </button>
+        {groups.map((g) => (
+          <button
+            key={g}
+            onClick={() => setGroupFilter(g)}
+            style={{
+              background: groupFilter === g ? "var(--ink)" : "transparent",
+              color: groupFilter === g ? "var(--paper)" : "var(--ink-soft)",
+              border: `1px solid ${groupFilter === g ? "var(--ink)" : "var(--rule-dark)"}`,
+              borderRadius: "2px",
+              fontFamily: "var(--mono)",
+              fontSize: "11px",
+              letterSpacing: "0.05em",
+              textTransform: "uppercase",
+              padding: "5px 12px",
+              cursor: "pointer",
+              transition: "all 0.15s ease"
+            }}
+          >
+            Group {g}
+          </button>
+        ))}
+      </div>
+
       {filteredMatches.length === 0 ? (
         <div style={{
-          padding: "40px 0",
+          padding: "60px 0",
           textAlign: "center",
           fontFamily: "var(--sans)",
-          color: "var(--ink-soft)"
+          color: "var(--ink-soft)",
+          border: "1px dashed var(--rule-dark)",
+          background: "var(--paper-raised)"
         }}>
-          No matches scheduled for this period.
+          No matches scheduled for this selection.
         </div>
-
       ) : (
         <div className="mlist-grid">
           {filteredMatches.map((m) => (
