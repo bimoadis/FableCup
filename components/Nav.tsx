@@ -4,8 +4,11 @@ export default function Nav() {
   return (
     <nav className="nav" aria-label="Main">
       <div className="nav-inner">
-        <Link href="/" className="wordmark">
-          Anthropic <em>Cup</em>
+        <Link href="/" className="wordmark" style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
+          <img src="/logo.svg" alt="Anthropic Cup Logo" width="24" height="24" style={{ display: "block" }} />
+          <span>
+            Anthropic <em>Cup</em>
+          </span>
         </Link>
         <div className="nav-links">
           <Link href="/#idea">The idea</Link>
