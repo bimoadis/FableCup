@@ -28,7 +28,7 @@ export async function submitPrediction(
 
   // Request signature from Phantom wallet
   const { signPhantomMessage } = await import("./wallet");
-  const messageStr = `Anthropic Cup Prediction: ${p.match_slug} - ${p.home_score}:${p.away_score}`;
+  const messageStr = `Anthropos Cup Prediction: ${p.match_slug} - ${p.home_score}:${p.away_score}`;
   const signRes = await signPhantomMessage(messageStr);
   if (!signRes.ok) {
     return { ok: false, error: signRes.error };

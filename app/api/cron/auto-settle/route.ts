@@ -10,12 +10,12 @@ const cronSecret = process.env.CRON_SECRET;
 // Solana config
 const rpcUrl = process.env.SOLANA_RPC_URL || "https://api.mainnet-beta.solana.com";
 const tokenMint = process.env.NEXT_PUBLIC_TOKEN_MINT;
-const minBalance = parseFloat(process.env.NEXT_PUBLIC_MIN_ANTHROPIC || "1000");
+const minBalance = parseFloat(process.env.NEXT_PUBLIC_MIN_ANTHROPOS || "1000");
 const adminKeypairSecret = process.env.ADMIN_WALLET_KEYPAIR;
 
 // Reward values
-const REWARD_EXACT_SCORE = 100; // $ANTHROPIC amount for exact score
-const REWARD_CORRECT_WINNER = 25; // $ANTHROPIC amount for correct winner only
+const REWARD_EXACT_SCORE = 100; // $ANTHROPOS amount for exact score
+const REWARD_CORRECT_WINNER = 25; // $ANTHROPOS amount for correct winner only
 
 const supabaseAdmin = supabaseUrl && supabaseServiceKey 
   ? createClient(supabaseUrl, supabaseServiceKey, {

@@ -5,19 +5,19 @@ export default function Nav() {
     <nav className="nav" aria-label="Main">
       <div className="nav-inner">
         <Link href="/" className="wordmark" style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
-          <img src="/logo3.svg" alt="Anthropic Cup Logo" width="40" height="40" style={{ display: "block" }} />
+          <img src="/logo3.svg" alt="Anthropos Cup Logo" width="40" height="40" style={{ display: "block" }} />
           <span>
-            Anthropic <em>Cup</em>
+            Anthropos <em>Cup</em>
           </span>
         </Link>
         <div className="nav-links">
           <Link href="/#idea">The idea</Link>
           <Link href="/markets">Markets</Link>
           <Link href="/#how">How it works</Link>
-          <Link href="/#token">$ANTHROPIC</Link>
+          <Link href="/#token">$ANTHROPOS</Link>
           <Link href="/#roadmap">Roadmap</Link>
           <a
-            href="https://x.com/anthropiccup?s=11"
+            href="https://x.com/AnthroposCup"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="X (formerly Twitter)"

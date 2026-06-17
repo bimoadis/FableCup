@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================================
-   ANTHROPIC CUP DESIGN TOKENS
+   ANTHROPOS CUP DESIGN TOKENS
    Paper, ink, hairlines. One market green, one market red.
    ============================================================ */
 :root{
@@ -208,12 +208,14 @@ section{padding:clamp(80px,11vw,150px) 0;border-top:1px solid var(--rule)}
 .legend .news i{border-top:2px dotted var(--ink-faint)}
 .why-svg{width:100%;height:auto}
 .why-svg .marketline{fill:none;stroke:var(--green);stroke-width:2;transition:stroke-dashoffset 2.2s ease-in-out}
+.why-svg .newsline{fill:none;stroke:var(--ink-faint);stroke-width:1.5;stroke-dasharray:3 3;opacity:0;transition:opacity .8s ease}
 .why-svg .gridline{stroke:var(--rule);stroke-width:1}
 .why-svg text{font-family:var(--mono);font-size:10.5px;fill:var(--ink-faint)}
 .why-svg .headline{opacity:0;transition:opacity .5s ease}
 .why-svg .headline-dot{fill:var(--paper);stroke:var(--ink);stroke-width:1.4}
 .why-svg .headline-label{fill:var(--ink-soft);font-size:11px;font-family:var(--sans)}
 .why-svg.in .marketline{stroke-dashoffset:0}
+.why-svg.in .newsline{opacity:1;transition-delay:.8s}
 .why-svg.in .headline{opacity:1}
 .why-svg.in .headline[data-h="1"]{transition-delay:.8s}
 .why-svg.in .headline[data-h="2"]{transition-delay:1.5s}

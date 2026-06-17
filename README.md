@@ -1,4 +1,4 @@
-# Anthropic Cup
+# Anthropos Cup
 
 The prediction market for World Cup 2026. Editorial, premium, zero gambling aesthetics.
 

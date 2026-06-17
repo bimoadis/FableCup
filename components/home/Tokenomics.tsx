@@ -36,7 +36,7 @@ export default function Tokenomics() {
     <div className="reveal">
       <div className="supply-line">
         <span className="num">1,000,000,000</span>
-        <span className="lab">Total supply &middot; fixed &middot; $ANTHROPIC</span>
+        <span className="lab">Total supply &middot; fixed &middot; $ANTHROPOS</span>
       </div>
 
       <div
@@ -45,11 +45,15 @@ export default function Tokenomics() {
         role="img"
         aria-label="Allocation: community rewards 40 percent, liquidity 20, ecosystem growth 15, treasury 10, development 10, team 5"
       >
-        {ALLOC.map((a) => (
+        {ALLOC.map((a, i) => (
           <div
             key={a.name}
             className="alloc-seg"
-            style={{ ["--w" as string]: a.pct + "%", background: a.color }}
+            style={{
+              ["--w" as string]: a.pct + "%",
+              background: a.color,
+              transitionDelay: `${i * 0.08}s`,
+            }}
             title={`${a.name} ${a.pct}%`}
           />
         ))}

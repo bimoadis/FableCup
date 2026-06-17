@@ -19,6 +19,9 @@ export default function WhyMarkets() {
         entries.forEach((e) => {
           if (e.isIntersecting) {
             svg.classList.add("in");
+            if (line) {
+              line.style.strokeDashoffset = "0";
+            }
             io.disconnect();
           }
         });
@@ -70,6 +73,11 @@ export default function WhyMarkets() {
         <path
           className="marketline"
           d="M60,240 L130,236 L190,228 L250,196 L310,168 L370,150 L430,118 L490,108 L550,96 L610,88 L670,70 L740,58"
+        />
+
+        <path
+          className="newsline"
+          d="M250,196 L430,118 L670,70"
         />
 
         <g className="headline" data-h="1">

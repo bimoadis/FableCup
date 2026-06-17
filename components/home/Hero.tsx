@@ -118,7 +118,7 @@ export default function Hero() {
 
         <div className="hero-reveal">
           <h1 className="mark">
-            Anthropic <em>Cup</em>
+            Anthropos <em>Cup</em>
           </h1>
           <p className="sub">The prediction market for World Cup 2026.</p>
           <p className="tag">The Market Behind the Narrative</p>

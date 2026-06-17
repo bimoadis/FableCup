@@ -1,11 +1,11 @@
 -- ==========================================
--- SETUP SUPABASE CRON JOBS FOR ANTHROPIC CUP
+-- SETUP SUPABASE CRON JOBS FOR ANTHROPOS CUP
 -- ==========================================
 -- This script schedules background jobs to lock matches and settle scores.
 -- Run this script in your Supabase Dashboard SQL Editor (https://supabase.com).
 -- Make sure to replace:
 -- 1. 'YOUR_CRON_SECRET' with the CRON_SECRET value set in your Vercel/local environment variables.
--- 2. 'https://anthropiccup.com' with your actual production or staging URL.
+-- 2. 'https://anthroposcup.com' with your actual production or staging URL.
 
 -- 1. Enable Required Extensions
 -- Note: 'pg_cron' must be enabled in your Supabase project settings:
@@ -24,7 +24,7 @@ SELECT cron.schedule(
   '* * * * *',
   $$
   SELECT net.http_get(
-    url := 'https://anthropiccup.com/api/cron/auto-lock',
+    url := 'https://anthroposcup.com/api/cron/auto-lock',
     headers := '{"Authorization": "Bearer YOUR_CRON_SECRET"}'::jsonb
   );
   $$
@@ -37,7 +37,7 @@ SELECT cron.schedule(
   '*/5 * * * *',
   $$
   SELECT net.http_get(
-    url := 'https://anthropiccup.com/api/cron/auto-settle',
+    url := 'https://anthroposcup.com/api/cron/auto-settle',
     headers := '{"Authorization": "Bearer YOUR_CRON_SECRET"}'::jsonb
   );
   $$

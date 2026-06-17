@@ -8,7 +8,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const rpcUrl = process.env.SOLANA_RPC_URL || "https://api.mainnet-beta.solana.com";
 const tokenMint = process.env.NEXT_PUBLIC_TOKEN_MINT;
-const minBalance = parseFloat(process.env.NEXT_PUBLIC_MIN_ANTHROPIC || "1000");
+const minBalance = parseFloat(process.env.NEXT_PUBLIC_MIN_ANTHROPOS || "1000");
 
 // Initialize Supabase Admin client (bypasses RLS if service role key is used)
 const supabaseAdmin = supabaseUrl && supabaseServiceKey 
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
 
     // 2. Cryptographic Signature Verification
     try {
-      const messageStr = `Anthropic Cup Prediction: ${match_slug} - ${home_score}:${away_score}`;
+      const messageStr = `Anthropos Cup Prediction: ${match_slug} - ${home_score}:${away_score}`;
       const messageBytes = new TextEncoder().encode(messageStr);
       const publicKeyBytes = bs58.decode(wallet);
       const signatureBytes = bs58.decode(signature);
@@ -79,7 +79,7 @@ export async function POST(request: Request) {
 
         if (balance < minBalance) {
           return NextResponse.json(
-            { ok: false, error: `Insufficient $ANTHROPIC balance. Required: ${minBalance.toLocaleString()}, Current: ${balance.toLocaleString()}` },
+            { ok: false, error: `Insufficient $ANTHROPOS balance. Required: ${minBalance.toLocaleString()}, Current: ${balance.toLocaleString()}` },
             { status: 403 }
           );
         }

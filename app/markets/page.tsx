@@ -6,7 +6,7 @@ import MarketList from "@/components/market/MarketList";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Markets · Anthropic Cup",
+  title: "Markets · Anthropos Cup",
   description:
     "Open prediction markets for World Cup 2026 fixtures. Submit your forecast and watch collective probability evolve.",
 };

@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="wrap">
         <div className="foot-grid">
           <span className="wordmark" style={{ fontSize: 16 }}>
-            Anthropic <em>Cup</em>
+            Anthropos <em>Cup</em>
           </span>
           <div className="foot-links">
             <Link href="/#idea">Thesis</Link>
@@ -14,7 +14,7 @@ export default function Footer() {
             <Link href="/#tokenomics">Allocation</Link>
             <Link href="/#roadmap">Roadmap</Link>
             <a
-              href="https://x.com/anthropiccup?s=11"
+              href="https://x.com/AnthroposCup"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="X (formerly Twitter)"
@@ -25,12 +25,12 @@ export default function Footer() {
               </svg>
             </a>
           </div>
-          <span className="mono">&copy; 2026 Anthropic Cup</span>
+          <span className="mono">&copy; 2026 Anthropos Cup</span>
         </div>
         <p className="disclaimer">
-          Anthropic Cup is a skill-based forecasting platform. Probabilities shown
-          on this site are illustrative until live markets open. Anthropic Cup is
-          not affiliated with FIFA. $ANTHROPIC is a utility token used for platform
+          Anthropos Cup is a skill-based forecasting platform. Probabilities shown
+          on this site are illustrative until live markets open. Anthropos Cup is
+          not affiliated with FIFA. $ANTHROPOS is a utility token used for platform
           access, governance, and rewards; nothing on this site is financial
           advice or an offer of securities.
         </p>

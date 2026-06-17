@@ -17,9 +17,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const m = await getLiveMarket(slug);
-  if (!m) return { title: "Market · Anthropic Cup" };
+  if (!m) return { title: "Market · Anthropos Cup" };
   return {
-    title: `${m.home} v ${m.away} · Anthropic Cup`,
+    title: `${m.home} v ${m.away} · Anthropos Cup`,
     description: `Forecast the exact score of ${m.home} v ${m.away} and watch the market's probability evolve up to kickoff.`,
   };
 }
@@ -77,7 +77,7 @@ export default async function MarketDetail({ params }: Props) {
           <div className="rule-item">
             <span className="k">Eligibility</span>
             <span className="v">
-              One forecast per wallet per match. A minimum $ANTHROPIC balance is
+              One forecast per wallet per match. A minimum $ANTHROPOS balance is
               required at the time of submission and at settlement.
             </span>
           </div>
