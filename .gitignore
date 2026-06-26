@@ -5,3 +5,8 @@ node_modules
 .DS_Store
 DEVELOPER-BRIEF.md
 
+# Custom ignores
+/scripts/
+markets.json
+filemarkets.json
+odds.json

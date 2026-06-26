@@ -25,7 +25,7 @@ SELECT cron.schedule(
   $$
   SELECT net.http_get(
     url := 'https://anthroposcup.com/api/cron/auto-lock',
-    headers := '{"Authorization": "Bearer YOUR_CRON_SECRET"}'::jsonb
+    headers := '{"Authorization": "Bearer super_secret_cron_key_fable_cup_2026"}'::jsonb
   );
   $$
 );
@@ -34,11 +34,11 @@ SELECT cron.schedule(
 -- Fetches results for locked matches, updates scores, computes winners, and processes Solana reward payouts.
 SELECT cron.schedule(
   'auto-settle-matches',
-  '*/5 * * * *',
+  '0 */3 * * *',
   $$
   SELECT net.http_get(
     url := 'https://anthroposcup.com/api/cron/auto-settle',
-    headers := '{"Authorization": "Bearer YOUR_CRON_SECRET"}'::jsonb
+    headers := '{"Authorization": "Bearer super_secret_cron_key_fable_cup_2026"}'::jsonb
   );
   $$
 );

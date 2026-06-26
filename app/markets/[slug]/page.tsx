@@ -33,9 +33,27 @@ export default async function MarketDetail({ params }: Props) {
   return (
     <main>
       <div className="mdetail-head wrap">
-        <p className="crumb">
-          <Link href="/markets">Markets</Link> &nbsp;/&nbsp; {market.stage}
-        </p>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "30px" }}>
+          <p className="crumb" style={{ marginBottom: 0 }}>
+            <Link href="/markets">Markets</Link> &nbsp;/&nbsp; {market.round}
+          </p>
+          <Link 
+            href="/markets" 
+            style={{
+              fontFamily: "var(--mono)",
+              fontSize: "11px",
+              letterSpacing: "0.05em",
+              textTransform: "uppercase",
+              color: "var(--ink)",
+              border: "1px solid var(--rule-dark)",
+              padding: "6px 12px",
+              borderRadius: "4px",
+              textDecoration: "none"
+            }}
+          >
+            ← Back to Markets
+          </Link>
+        </div>
         <h1 className="matchup">
           {market.home}
           <em>v</em>

@@ -63,6 +63,17 @@ export async function connectPhantom(): Promise<
   }
 }
 
+export async function disconnectPhantom(): Promise<void> {
+  const provider = getProvider();
+  if (provider) {
+    try {
+      await provider.disconnect();
+    } catch (err) {
+      console.error("Disconnect error:", err);
+    }
+  }
+}
+
 export async function signPhantomMessage(
   messageStr: string
 ): Promise<{ ok: true; signature: string } | { ok: false; error: string }> {

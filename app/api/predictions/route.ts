@@ -153,3 +153,40 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function GET(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const wallet = searchParams.get("wallet");
+
+    if (!wallet) {
+      return NextResponse.json(
+        { ok: false, error: "Missing wallet parameter" },
+        { status: 400 }
+      );
+    }
+
+    if (!supabaseAdmin) {
+      return NextResponse.json({ ok: true, data: [] });
+    }
+
+    const { data, error } = await supabaseAdmin
+      .from("predictions")
+      .select("match_slug, home_score, away_score")
+      .eq("wallet", wallet);
+
+    if (error) {
+      return NextResponse.json(
+        { ok: false, error: error.message },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ ok: true, data });
+  } catch (err) {
+    return NextResponse.json(
+      { ok: false, error: err instanceof Error ? err.message : "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

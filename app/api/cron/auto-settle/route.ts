@@ -3,6 +3,21 @@ import { createClient } from "@supabase/supabase-js";
 import { Connection, PublicKey, Keypair, Transaction, SystemProgram, sendAndConfirmTransaction } from "@solana/web3.js";
 import bs58 from "bs58";
 
+function normalizeTeamName(name: string) {
+  const mapping: Record<string, string> = {
+    "United States": "USA",
+    "South Korea": "Korea Republic"
+  };
+  return mapping[name] || name;
+}
+
+function makeSlug(home: string, away: string, kickoff_time: string) {
+  const h = home.toLowerCase().replace(/[^a-z0-9]/g, "-").substring(0, 8);
+  const a = away.toLowerCase().replace(/[^a-z0-9]/g, "-").substring(0, 8);
+  const date = kickoff_time ? kickoff_time.split("T")[0] : "tbd";
+  return `${h}-${a}-${date}`;
+}
+
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const cronSecret = process.env.CRON_SECRET;
@@ -112,8 +127,8 @@ export async function GET(request: Request) {
 
   try {
     const now = new Date();
-    // A match ends approximately 2.5 hours (150 minutes) after kickoff
-    const endWindow = new Date(now.getTime() - 150 * 60 * 1000).toISOString();
+    // A match ends approximately 3 hours (180 minutes) after kickoff
+    const endWindow = new Date(now.getTime() - 180 * 60 * 1000).toISOString();
 
     // 2. Query locked matches that are ready to be settled
     const { data: matchesToSettle, error: selectError } = await supabaseAdmin
@@ -130,13 +145,29 @@ export async function GET(request: Request) {
       return NextResponse.json({ ok: true, message: "No matches ready for settlement." });
     }
 
+    // Fetch API data
+    const apiRes = await fetch("https://ultrasmcp.tech/api/matches");
+    const apiData = await apiRes.json();
+    const finishedMatches = apiData.matches ? apiData.matches.filter((m: any) => m.status === "FINISHED" || m.status === "FT") : [];
+
     const report = [];
 
     for (const match of matchesToSettle) {
-      // 3. Determine official result (fetch from external API or generate dummy result)
-      // For this implementation, we generate a random score (0 to 3 goals) for test/demo ease
-      const homeScore = Math.floor(Math.random() * 4);
-      const awayScore = Math.floor(Math.random() * 4);
+      // 3. Determine official result from external API
+      const apiMatch = finishedMatches.find((m: any) => {
+        const home = normalizeTeamName(m.homeTeam?.name || "");
+        const away = normalizeTeamName(m.awayTeam?.name || "");
+        const s = makeSlug(home, away, m.utcDate);
+        return s === match.slug;
+      });
+
+      if (!apiMatch || apiMatch.score?.fullTime?.home === undefined) {
+        report.push({ match: match.slug, status: "pending", error: "Not finished in API yet or score missing" });
+        continue;
+      }
+
+      const homeScore = apiMatch.score.fullTime.home;
+      const awayScore = apiMatch.score.fullTime.away;
 
       console.log(`Settling match "${match.slug}" with score ${match.home} ${homeScore} - ${awayScore} ${match.away}`);
 
